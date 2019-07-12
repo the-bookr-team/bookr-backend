@@ -1,3 +1,4 @@
 module.exports = {
-	booksRouter: require('./booksRouter.js')
+	booksRouter: require('./booksRouter.js'),
+	usersRouter: require('./usersRouter.js')
 };
