@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 module.exports = {
 	generateToken
@@ -7,8 +8,7 @@ module.exports = {
 function generateToken(user) {
 	const payload = {
 		subject: user.id,
-		username: user.username,
-		roles: [ 'Reviewer' ]
+		username: user.username
 	};
 
 	const options = {

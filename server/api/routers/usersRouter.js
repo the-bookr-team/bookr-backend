@@ -17,20 +17,22 @@ router.get('/', async (req, res) => {
 	}
 });
 
-router.post('/register', async (req, res) => {
-	try {
-		let user = req.body;
-		const hash = bcrypt.hashSync(user.password, 10);
-		user.password = hash;
-		const newUser = await addUser(user);
-		if (newUser) {
-			res.status(201).json(newUser);
-		} else {
-			res.status(404).json('Invalid Fields');
-		}
-	} catch (err) {
-		res.status(500).json({ message: err });
-	}
+router.post('/register', (req, res) => {
+	let user = req.body;
+	const hash = bcrypt.hashSync(user.password, 10);
+	user.password = hash;
+
+	addUser(user)
+		.then((newUser) => {
+			if (newUser) {
+				res.status(201).json(newUser);
+			} else {
+				res.status(404).json('Invalid Fields');
+			}
+		})
+		.catch((err) => {
+			res.status(500).json({ message: err });
+		});
 });
 
 router.post('/login', (req, res) => {
@@ -43,8 +45,7 @@ router.post('/login', (req, res) => {
 				const token = createToken.generateToken(user);
 				res.status(200).json({
 					message: `Welcome ${user.username}`,
-					token,
-					roles: token.roles
+					token
 				});
 			} else {
 				res.status(404).json({ message: 'Invalid Credentials' });
