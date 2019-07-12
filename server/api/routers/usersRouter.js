@@ -1,5 +1,8 @@
-const { getUsers, addUser } = require('../helpers');
 const router = require('express').Router();
+const bcrypt = require('bcryptjs');
+
+const createToken = require('../auth/createToken.js');
+const { getUsers, getUserById, getUsersBy, addUser } = require('../helpers');
 
 router.get('/', async (req, res) => {
 	try {
@@ -16,7 +19,10 @@ router.get('/', async (req, res) => {
 
 router.post('/register', async (req, res) => {
 	try {
-		const newUser = await addUser(req.body);
+		let user = req.body;
+		const hash = bcrypt.hashSync(user.password, 10);
+		user.password = hash;
+		const newUser = await addUser(user);
 		if (newUser) {
 			res.status(201).json(newUser);
 		} else {
@@ -27,6 +33,26 @@ router.post('/register', async (req, res) => {
 	}
 });
 
-router.post('/login', async (req, res) => {});
+router.post('/login', (req, res) => {
+	let { username, password } = req.body;
+
+	getUsersBy({ username })
+		.first()
+		.then((user) => {
+			if (user && bcrypt.compareSync(password, user.password)) {
+				const token = createToken.generateToken(user);
+				res.status(200).json({
+					message: `Welcome ${user.username}`,
+					token,
+					roles: token.roles
+				});
+			} else {
+				res.status(404).json({ message: 'Invalid Credentials' });
+			}
+		})
+		.catch((err) => {
+			res.status(500).json(err);
+		});
+});
 
 module.exports = router;
