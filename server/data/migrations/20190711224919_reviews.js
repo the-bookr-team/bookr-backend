@@ -3,7 +3,7 @@ exports.up = function(knex, Promise) {
 		tbl.increments();
 		tbl.string('reviewer', 128).references('username').inTable('users').onDelete('CASCADE').onUpdate('CASCADE');
 		tbl.string('review', 128);
-		tbl.integer('rating', 5);
+		tbl.integer('rating', 1);
 		tbl.integer('reviewer_id').references('id').inTable('users').onDelete('CASCADE').onUpdate('CASCADE');
 		tbl.integer('book_id').references('id').inTable('books').onDelete('CASCADE').onUpdate('CASCADE');
 	});
