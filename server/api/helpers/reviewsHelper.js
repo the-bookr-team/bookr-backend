@@ -1,14 +1,14 @@
 const db = require('../../data/dbConfig.js');
 
 const getReviews = () => {
-	return db('reviews');
+	return db('reviews').select('review', 'reviewer', 'rating');
 };
 
 const getReviewById = (id) => {
 	return db('reviews').where({ id }).first();
 };
 
-const findBookReviews = (bookId) => {
+const getBookReviews = (bookId) => {
 	return db('reviews as r')
 		.join('books as b', 'r.book_id', 'b.id')
 		.select('r.id', 'r.review', 'r.reviewer', 'b.id as bookId', 'r.rating')
@@ -32,7 +32,7 @@ module.exports = {
 	getReviews,
 	getReviewById,
 	addReview,
-	findBookReviews,
+	getBookReviews,
 	updateReview,
 	deleteReview
 };

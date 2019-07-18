@@ -6,19 +6,6 @@ router.get('/', async (req, res) => {
 	try {
 		const books = await getBooks();
 		if (books) {
-			// let newBooks = books.map((book) => {
-			// 	// console.log(book);
-			// 	const bookReviews = findBookReviews(book.id);
-			// 	console.log(bookReviews);
-			// 	if (bookReviews) {
-			// 		return {
-			// 			...book,
-			// 			reviews: bookReviews
-			// 		};
-			// 	} else {
-			// 		return book;
-			// 	}
-			// });
 			res.status(200).json(books);
 			console.log(books);
 		} else {

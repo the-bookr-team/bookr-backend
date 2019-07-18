@@ -1,5 +1,7 @@
 const jwt = require('jsonwebtoken');
 
+// middleware that if NO TOKEN the user will not be authorized
+
 module.exports = (req, res, next) => {
 	const token = req.headers.authorization;
 

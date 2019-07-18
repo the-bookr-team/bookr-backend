@@ -5,6 +5,8 @@ module.exports = {
 	generateToken
 };
 
+// creates a JSON Web Token token
+
 function generateToken(user) {
 	const payload = {
 		subject: user.id,
