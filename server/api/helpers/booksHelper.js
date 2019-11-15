@@ -1,8 +1,45 @@
 const db = require('../../data/dbConfig.js');
 
-function getBooks() {
-	return db('books as b').join('reviews as r', 'b.id', 'r.book_id')
-}
+const getBooks = () => {
+	let books = db('books as b').map((item) => {
+		let query = db('reviews as r');
+
+		if (item.id) {
+			query.where('r.book_id', item.id).first();
+
+			const promises = [query, getBookReviews(item.id)];
+
+			return Promise.all(promises).then(function (results) {
+				let [book, reviews] = results;
+
+				if (book) {
+					book.reviews = reviews;
+					return book;
+				}
+			});
+		}
+	});
+	if (books) return books;
+};
+
+// function getBooks() {
+// 	let books = db('books as b').map(item => {
+// 		if (item.id) {
+// 			books.where('b.id', item.id).first();
+// 			const promises = [book, getBookReviews(item.id)]
+
+// 			return Promise.all(promises).then(function (results) {
+// 				let [book, reviews = reviews] = results;
+
+// 				if (book) {
+// 					book.reviews = reviews;
+// 					return book
+// 				}
+// 			})
+// 		}
+// 	})
+// 	if (books) return books
+// }
 
 async function getBookById(id) {
 	await db('books').where({ id }).first();
