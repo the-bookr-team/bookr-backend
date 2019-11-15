@@ -16,7 +16,7 @@ router.get('/search', (req, res) => {
 						goodreadsId: work.best_book[0].id[0]._,
 						title: work.best_book[0].title[0],
 						author: work.best_book[0].author[0].name[0],
-						book_img: [ work.best_book[0].image_url[0] ]
+						book_img: [work.best_book[0].image_url[0]]
 					}))
 				})
 			)
@@ -26,6 +26,7 @@ router.get('/search', (req, res) => {
 router.get('/', async (req, res) => {
 	try {
 		const books = await getBooks();
+		console.log(books)
 		if (books) {
 			res.status(200).json(books);
 		} else {

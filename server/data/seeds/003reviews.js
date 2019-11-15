@@ -1,6 +1,6 @@
-exports.seed = function(knex, Promise) {
+exports.seed = function (knex, Promise) {
 	// Deletes ALL existing entries
-	return knex('reviews').del().then(function() {
+	return knex('reviews').del().then(function () {
 		// Inserts seed entries
 		return knex('reviews').insert([
 			{
@@ -12,12 +12,76 @@ exports.seed = function(knex, Promise) {
 				book_id: 1
 			},
 			{
-				id: 2,
+				id: 6,
 				reviewer: 'Dan',
 				review: 'Awesome book, definitely worth reading again.',
 				rating: 5,
 				reviewer_id: 2,
-				book_id: 1
+				book_id: 2
+			},
+			{
+				id: 7,
+				reviewer: 'Dan',
+				review: 'Awesome book, definitely worth reading again.',
+				rating: 5,
+				reviewer_id: 2,
+				book_id: 3
+			},
+			{
+				id: 8,
+				reviewer: 'Dan',
+				review: 'Awesome book, definitely worth reading again.',
+				rating: 5,
+				reviewer_id: 2,
+				book_id: 4
+			},
+			{
+				id: 9,
+				reviewer: 'Dan',
+				review: 'Awesome book, definitely worth reading again.',
+				rating: 5,
+				reviewer_id: 2,
+				book_id: 5
+			},
+			{
+				id: 10,
+				reviewer: 'Dan',
+				review: 'Awesome book, definitely worth reading again.',
+				rating: 5,
+				reviewer_id: 2,
+				book_id: 6
+			},
+			{
+				id: 11,
+				reviewer: 'Dan',
+				review: 'Awesome book, definitely worth reading again.',
+				rating: 5,
+				reviewer_id: 2,
+				book_id: 7
+			},
+			{
+				id: 12,
+				reviewer: 'Dan',
+				review: 'Awesome book, definitely worth reading again.',
+				rating: 5,
+				reviewer_id: 2,
+				book_id: 8
+			},
+			{
+				id: 13,
+				reviewer: 'Dan',
+				review: 'Awesome book, definitely worth reading again.',
+				rating: 5,
+				reviewer_id: 2,
+				book_id: 9
+			},
+			{
+				id: 14,
+				reviewer: 'Dan',
+				review: 'Awesome book, definitely worth reading again.',
+				rating: 5,
+				reviewer_id: 2,
+				book_id: 10
 			},
 			{
 				id: 3,

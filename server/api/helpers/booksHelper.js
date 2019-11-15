@@ -1,27 +1,8 @@
 const db = require('../../data/dbConfig.js');
 
-const getBooks = () => {
-	let books = db('books as b').map((item) => {
-		let query = db('books as b2');
-
-		if (item.id) {
-			query.where('b2.id', item.id).first();
-
-			const promises = [ query, getBookReviews(item.id) ];
-
-			return Promise.all(promises).then(function(results) {
-				let [ book, reviews = reviews ] = results;
-
-				if (book) {
-					book.reviews = reviews;
-
-					return book;
-				}
-			});
-		}
-	});
-	if (books) return books;
-};
+function getBooks() {
+	return db('books as b').join('reviews as r', 'b.id', 'r.book_id')
+}
 
 async function getBookById(id) {
 	await db('books').where({ id }).first();
