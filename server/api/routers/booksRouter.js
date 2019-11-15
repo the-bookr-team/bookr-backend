@@ -26,7 +26,6 @@ router.get('/search', (req, res) => {
 router.get('/', async (req, res) => {
 	try {
 		const books = await getBooks();
-		console.log(books)
 		if (books) {
 			res.status(200).json(books);
 		} else {

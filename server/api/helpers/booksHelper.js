@@ -2,18 +2,20 @@ const db = require('../../data/dbConfig.js');
 
 const getBooks = () => {
 	let books = db('books as b').map((item) => {
-		let query = db('reviews as r');
-
+		let query = db('books as b2');
 		if (item.id) {
-			query.where('r.book_id', item.id).first();
+			query.where('b2.id', item.id).first();
 
 			const promises = [query, getBookReviews(item.id)];
 
 			return Promise.all(promises).then(function (results) {
-				let [book, reviews] = results;
+				console.log(results)
+				let [book, reviews = reviews] = results;
 
 				if (book) {
 					book.reviews = reviews;
+
+					// console.log(reviews)
 					return book;
 				}
 			});
