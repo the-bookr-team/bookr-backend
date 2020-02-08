@@ -79,6 +79,14 @@ exports.seed = function(knex, Promise) {
           publisher: "K.L Randis"
         },
         {
+          id: 10,
+          book_img:
+            "https://m.media-amazon.com/images/I/91XT4tkFFeL._AC_UL436_.jpg",
+          title: "The Handmaid's Tale",
+          author: "Margaret Atwood",
+          publisher: "Houghton Mifflin Harcourt (February 17, 1986)"
+        },
+        {
           id: 11,
           book_img:
             "https://m.media-amazon.com/images/I/91OzUswpEzL._AC_UY218_ML3_.jpg",
